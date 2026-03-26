@@ -1,4 +1,5 @@
 import GoogleProvider, { GoogleProfile } from "next-auth/providers/google";
+import FacebookProvider, { FacebookProfile } from "next-auth/providers/facebook";
 import Credentials from "next-auth/providers/credentials";
 import prisma from "../../db/client";
 import { NextResponse } from "next/server";
@@ -23,6 +24,20 @@ export const options = {
           response_type: "code",
         },
       },
+    }),
+
+    FacebookProvider({
+      profile(profile: FacebookProfile) {
+        return {
+          ...profile,
+          rol: "USER",
+          image: profile.picture?.data?.url || "",
+          id: profile.id,
+          thirdparty: true,
+        };
+      },
+      clientId: process.env.FACEBOOK_CLIENT_ID ?? "",
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET ?? "",
     }),
 
     Credentials({

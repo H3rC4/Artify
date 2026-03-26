@@ -60,6 +60,7 @@ export async function POST(req) {
     });
     return NextResponse.json({ status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 404 });
+    console.error("Nodemailer error:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

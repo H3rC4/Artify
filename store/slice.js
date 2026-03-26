@@ -24,20 +24,22 @@ export const Slice = createSlice({
 
   reducers: {
     GET_INFO: (state, action) => {
-      state.products = action.payload;
-      state.dashProducts = action.payload;
-      state.copyProducts = action.payload.filter((product) => product.status === "ACTIVE");
-      state.activeProducts = action.payload.filter((product) => product.status === "ACTIVE");
+      const payload = action.payload || [];
+      state.products = payload;
+      state.dashProducts = payload;
+      state.copyProducts = payload.filter((product) => product.status === "ACTIVE");
+      state.activeProducts = payload.filter((product) => product.status === "ACTIVE");
     },
     GET_PROVINCES: (state, action) => {
-      state.provinces = action.payload;
+      state.provinces = action.payload || [];
     },
     GET_CATEGORIES: (state, action) => {
-      state.categories = action.payload;
+      state.categories = action.payload || [];
     },
     getUsers: (state, action) => {
-      state.users = action.payload;
-      state.dashUsers = action.payload;
+      const payload = action.payload || [];
+      state.users = payload;
+      state.dashUsers = payload;
     },
 
     setDashProducts: (state, { type, payload }) => {
